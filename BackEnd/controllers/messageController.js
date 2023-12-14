@@ -1,6 +1,6 @@
-const axios = require('axios');
+const axios = require('axios');//问json server拿这个data
 
-const getMessage = async function(req,res){
+const getMessage = async function(req,res,next){
     try {
         const url = 'http://localhost:8000/message';
         const message = await axios.get(url);
@@ -11,7 +11,7 @@ const getMessage = async function(req,res){
             }
         })
     } catch (error) {
-        console.log('error',error);        
+        next(error)       
     }
 }
 

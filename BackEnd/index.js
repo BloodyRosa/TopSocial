@@ -8,13 +8,22 @@
 const express = require('express');
 const cors = require('cors');
 const router = require('./routes/index');
+const {handleErrors} = require('./middleware/errorMiddleware')
 
 //create web server
 const app = express();
 
-app.use(cors()); //帮cors注册一个全局中间件
+//帮cors注册一个全局中间件
+app.use(cors()); 
 
+//解析json数据
+app.use(express.json());
+
+//call API
 app.use('/api',router);
+
+//注册handleError中间件（记得这个要写在API Call后面，要call失败了才会走到这个中间件来
+app.use(handleErrors)
 
 
 
